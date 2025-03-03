@@ -6,6 +6,7 @@
 - Measure error and improve our predictions
 
 **Setup**
+
 To follow this project, please install the following locally:
 - Jupyter lab
 - Latest Python version
@@ -16,4 +17,5 @@ To follow this project, please install the following locally:
   - sckikit-learn
 
 **Data**
+
 We'll be scraping [vlr](https://www.vlr.gg/)
