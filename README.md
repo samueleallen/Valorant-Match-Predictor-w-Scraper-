@@ -1,11 +1,11 @@
 # Project Overview
-##**Project Steps**
+## **Project Steps**
 - Scrape match data using requests, Beautiful Soup, and Pandas.
 - Clean the data and get it ready for machine learning using pandas
 - Make predictions about who will win/lose a match using scikit-learn
 - Measure error and improve our predictions
 
-##**Setup**
+## **Setup**
 
 To follow this project, please install the following locally:
 - Jupyter lab
@@ -16,11 +16,11 @@ To follow this project, please install the following locally:
   - BeautifulSoup
   - sckikit-learn
 
-##**Data**
+## **Data**
 
 We'll be scraping [vlr](https://www.vlr.gg/) and they do allow web scraping their data
 
-##**Tournament Predictions**  
+## **Tournament Predictions**  
 
 There are three main tournaments to consider predicting results of:
 - First Valorant Masters Tournament of the season
@@ -36,7 +36,7 @@ Potential Solutions:
 1. Create three different machine learning models each with their own unique training/test set.
 2. Only aim for the results of the biggest tournament (Champions Tournament)
 
-##**Feature Engineering**
+## **Feature Engineering**
 A couple of ways to go about this:
 - Intuition:
 - - Intuitively estimate what features have the most impact on the results of a game using your expertise level
@@ -54,11 +54,11 @@ Features to consider:
   - Note: Implementation of Team and vsTeam as features seemed to lower accuracy score of the model...
   - Something to consider is why this might have happened and if the implementation could be better.
 
-##**Future Considerations**
+## **Future Considerations**
 In the future, we should consider testing different machine learning algorithims and the implementation of different statistical techniques
 to optimize the model futher.
 
-###**Random Forest vs XGBoost:**
+### **Random Forest vs XGBoost:**
 Currently we use RandomForest but I have heard XGBoost may produce a better model.
 Notable Differences:
 - RandomForest trains trees in parallel and combines the trees to make a prediction.
