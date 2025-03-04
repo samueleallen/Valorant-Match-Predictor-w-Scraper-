@@ -11,14 +11,14 @@ To follow this project, please install the following locally:
 - Jupyter lab
 - Latest Python version
 - Python Packages
-- - pandas
+  - pandas
   - requests
   - BeautifulSoup
   - sckikit-learn
 
 ## **Data**
 
-We'll be scraping [vlr](https://www.vlr.gg/) and they do allow web scraping their data
+We'll be scraping [vlr](https://www.vlr.gg/) as they allow web scraping.
 
 ## **Tournament Predictions**  
 
@@ -41,16 +41,16 @@ A couple of ways to go about this:
 - Intuition:
 - - Intuitively estimate what features have the most impact on the results of a game using your expertise level
 - [Scikit](https://scikit-learn.org/stable/modules/feature_selection.html)
-- - Use the sk.learn_feature_selection module to improve estimators' accuracy scores
+  - Use the sk.learn_feature_selection module to improve estimators' accuracy scores
 
 Features to consider:
 - Jet lag
--  - Does the team perform worse when they have to travel to a far place for the tournament?
+   - Does the team perform worse when they have to travel to a far place for the tournament?
    - Do they perform better on home turf?
 - Weekday Performance
--  - Does a team do better on one weekday compared to another?
+   - Does a team do better on one weekday compared to another?
 - Team rivalries
-- - Does team A have a history of doing better against Team B?
+  - Does team A have a history of doing better against Team B?
   - Note: Implementation of Team and vsTeam as features seemed to lower accuracy score of the model...
   - Something to consider is why this might have happened and if the implementation could be better.
 
@@ -62,8 +62,8 @@ to optimize the model futher.
 Currently we use RandomForest but I have heard XGBoost may produce a better model.
 Notable Differences:
 - RandomForest trains trees in parallel and combines the trees to make a prediction.
-- - Uses bootstrap sampling to improve accuracy
+  - Uses bootstrap sampling to improve accuracy
 - XGBoost trains trees sequentially and improves upon previous trees.
-- - Uses gradient descent to minimize errors.
+  - Uses gradient descent to minimize errors.
 
 Ultimately, there are many ways for potential improvements of the model and the answer to finding the next potential improvement is through experimentation.
