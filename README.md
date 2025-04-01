@@ -53,6 +53,8 @@ Features to consider:
   - Does team A have a history of doing better against Team B?
   - Note: Implementation of Team and vsTeam as features seemed to lower accuracy score of the model...
   - Something to consider is why this might have happened and if the implementation could be better.
+- Team Elos:
+  - Create our own elo ranking system.
 
 ## **Future Considerations**
 In the future, we should consider testing different machine learning algorithims and the implementation of different statistical techniques
