@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name = "viewport" content="with=device-width, initial-scale=1.0">
+            <title>Standings Page</title>
+            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;1,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/all.min.css">
+    </head>
+    <body class="standings-page">
+        <div class="content-container">
+            <section class="menu">
+                <nav>
+                    <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/Valorant_logo.svg') }}"></a>
+                    <div class="nav-links" id="navLinks">
+                        <i class="fa fa-times" onclick="hideMenu()"></i>
+                        <ul>
+                            <li><a href="{{ url_for('index') }}">HOME</a></li>
+                            <li><a href="">ABOUT</a></li>
+                            <li><a href="">MATCHES</a></li>
+                            <li><a href="{{ url_for('standings') }}">STANDINGS</a></li>
+                            <li><a href="">CONTACT</a></li>
+                        </ul>
+                    </div>
+                    <i class="fa fa-bars" onclick="showMenu()"></i>
+                </nav>
+            </section>
+            <section class="region-menu">
+                <div class="region-menu-filters">
+                    <button class="filter-btn active" data-region="ALL">GLOBAL</button>
+                    <button class="filter-btn" data-region="NA">NORTH AMERICA</button>
+                    <button class="filter-btn" data-region="EU">EMEA</button>
+                    <button class="filter-btn" data-region="PA">PACIFIC</button>
+                    <button class="filter-btn" data-region="CH">CHINA</button>
+                </div>
+            </section>
+        </div>
+        <!----- Java Script for Toggle Menu ----->
+        <script>
+            var navLinks = document.getElementById("navLinks");
+            function showMenu(){
+                navLinks.style.right = "-50px";
+            }
+            function hideMenu(){
+                navLinks.style.right = "-200px";
+            }
+
+        </script>
+
+    <!----- Java Script for Region Filters ----->
+        <script>
+            // Container for match filters
+            const matchesContainer = document.querySelector('.region-menu .region-menu-filters');
+            const matchesFilterButtons = matchesContainer.querySelectorAll('.filter-btn');    
+
+            // Function to handle toggling logic
+            function toggleFilter(buttons, clickedButton) {
+                buttons.forEach(btn => btn.classList.remove('active'));
+
+                clickedButton.classList.add('active');
+                
+                // TODO: Add filter logic here
+                
+            }
+
+            // Attach listeners to matches buttons
+            matchesFilterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    toggleFilter(matchesFilterButtons, button);
+                });
+            });
+
+            // Attach listeners to standings buttons
+            standingsFilterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    toggleFilter(standingsFilterButtons, button);
+                });
+            });
+        </script>
+    </body>
+</html>
+    
