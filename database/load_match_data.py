@@ -7,7 +7,7 @@ DB_NAME = config.DB_NAME
 DB_USER = config.DB_USER
 DB_PASSWORD = config.DB_PASSWORD
 
-CSV_FILE_PATH = "C:/Users/Sam/Documents/Comp Sci/Valorant-Match-Predictor-w-Scraper-/aggregated_game_stats.csv"
+CSV_FILE_PATH = "C:/Users/Sam/Documents/Comp Sci/Valorant-Match-Predictor-w-Scraper-/content/aggregated_game_stats.csv"
 
 def get_or_create_team(cursor, team_name):
     """
@@ -21,7 +21,7 @@ def get_or_create_team(cursor, team_name):
     Output:
         Returns team_id
     """
-    # Check if team exists
+    # Filter out some team rebrandings
     if team_name == "Giants Gaming":
         team_name = "GIANTX"
     elif team_name == "NRG Esports":
@@ -30,7 +30,8 @@ def get_or_create_team(cursor, team_name):
         team_name = "KOI"
     elif team_name == "JD Mall JDG Esports(JDG Esports)":
         team_name = "JDG Esports"
-        
+    
+    # Check if team exists
     cursor.execute("SELECT team_id FROM Teams WHERE team_name = %s;", (team_name,))
     team_id = cursor.fetchone()
 
@@ -119,8 +120,8 @@ def load_normalized_data():
                                         row['FK_T2'], row['FD_T2'], row['+/- FK/FD_T2']
                                     ))
                     
-                    # Save changes
-                    cn.commit()
+                # Save changes
+                cn.commit()
 
     except Exception as e:
         print(f"Error: {e}")

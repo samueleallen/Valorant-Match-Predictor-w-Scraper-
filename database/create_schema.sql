@@ -1,21 +1,29 @@
 DROP TABLE IF EXISTS MatchStats;
 DROP TABLE IF EXISTS Matches;
+DROP TABLE IF EXISTS Roster;
 DROP TABLE IF EXISTS Teams;
+DROP TABLE IF EXISTS PlayerAgentStats_90Days;
 DROP TABLE IF EXISTS PlayerAgentStats;
 DROP TABLE IF EXISTS Regions;
 DROP TABLE IF EXISTS Players;
 DROP TABLE IF EXISTS Agents;
 
 CREATE TABLE Agents (
-    agent_id INT,
+    agent_id SERIAL,
     agent_name VARCHAR(30) NOT NULL UNIQUE,
     PRIMARY KEY (agent_id)
 );
 
 CREATE TABLE Players (
-    player_id INT,
+    player_id SERIAL,
     player_name VARCHAR(30) NOT NULL UNIQUE,
     PRIMARY KEY (player_id)
+);
+
+CREATE TABLE Regions (
+    region_id SERIAL,
+    region_name VARCHAR(20) NOT NULL UNIQUE,
+    PRIMARY KEY (region_id)
 );
 
 CREATE TABLE PlayerAgentStats (
@@ -41,10 +49,27 @@ CREATE TABLE PlayerAgentStats (
     FOREIGN KEY (agent_id) REFERENCES Agents(agent_id)
 );
 
-CREATE TABLE Regions (
-    region_id SERIAL,
-    region_name VARCHAR(20) NOT NULL UNIQUE,
-    PRIMARY KEY (region_id)
+CREATE TABLE PlayerAgentStats_90Days (
+    player_id INT,
+    agent_id INT,
+    rounds INT NOT NULL,
+    r2 DECIMAL(3, 2),
+    use_pct INT,
+    acs DECIMAL(4, 1),
+    kd_ratio DECIMAL(3, 2),
+    adr DECIMAL(4, 1),
+    kast_pct INT,
+    kpr DECIMAL(3, 2),
+    fkpr DECIMAL(3, 2),
+    fdpr DECIMAL(3, 2),
+    kills INT,
+    deaths INT,
+    assists INT,
+    fk INT,
+    fd INT,
+    PRIMARY KEY (player_id, agent_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id),
+    FOREIGN KEY (agent_id) REFERENCES Agents(agent_id)
 );
 
 CREATE TABLE Teams (
@@ -54,6 +79,14 @@ CREATE TABLE Teams (
     PRIMARY KEY (team_id),
     FOREIGN KEY (region_id) REFERENCES Regions(region_id)
 );
+
+CREATE TABLE Roster (
+    player_id INT,
+    team_id INT,
+    PRIMARY KEY(player_id),
+    FOREIGN KEY (player_id) REFERENCES Players(player_id),
+    FOREIGN KEY (team_id) REFERENCES Teams(team_id)
+)
 
 CREATE TABLE Matches (
     match_id VARCHAR(128),

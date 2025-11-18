@@ -57,37 +57,6 @@ def get_or_create_region(cursor, region_name):
     cursor.execute("INSERT INTO Regions (region_name) VALUES (%s) RETURNING region_id;", (region_name,))
     return cursor.fetchone()[0]
 
-def load_regions():
-    """
-    Purpose: Populates our "Regions" relation in our database with data.
-    
-    Arguments:
-        None
-
-    Outputs:
-        None. Just updates an SQL database.
-    """
-    try:
-        # Load csv
-        df = pd.read_csv(CSV_FILE_PATH)
-
-        # Connect to database
-        with psycopg2.connect(host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASSWORD) as cn:
-            with cn.cursor() as rs:
-                # Process each row
-                for index, row in df.iterrows():
-                    region = row["Region"].split(" ")[0] # Only grab the region name, not the tournament name.
-
-                    # Now insert into Regions table
-                    q = """
-                        INSERT INTO Regions (region_name) VALUES (%s) ON CONFLICT (region_name) DO NOTHING;
-                        """
-                    rs.execute(q, (region,))
-
-                    cn.commit()
-
-    except Exception as e:
-        print(f"Error: {e}")
 def load_team_data():
     """
     Purpose: Loads valorant team data including team_name and region.
@@ -111,7 +80,7 @@ def load_team_data():
                     region_val = row.get("Region")
                     team_name = row.get("Team Name")
 
-                    if region_val == "Region" or pd.isna(region_val) or pd.isna("Team Name"):
+                    if region_val == "Region" or pd.isna(region_val) or pd.isna(team_name):
                         continue
 
                     region = str(region_val).split(" ")[0] # Only grab the region name, not the tournament name.
@@ -126,11 +95,10 @@ def load_team_data():
                     
                     rs.execute(q, (team_name, region_id))
 
-                    cn.commit()
+                cn.commit()
 
     except Exception as e:
         print(f"Error: {e}")
 
 if __name__ == '__main__':
-    load_regions()
     load_team_data()
