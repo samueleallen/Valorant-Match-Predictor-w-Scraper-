@@ -22,6 +22,15 @@ def get_or_create_team(cursor, team_name):
         Returns team_id
     """
     # Check if team exists
+    if team_name == "Giants Gaming":
+        team_name = "GIANTX"
+    elif team_name == "NRG Esports":
+        team_name = "NRG"
+    elif team_name == "Movistar KOI(KOI)":
+        team_name = "KOI"
+    elif team_name == "JD Mall JDG Esports(JDG Esports)":
+        team_name = "JDG Esports"
+        
     cursor.execute("SELECT team_id FROM Teams WHERE team_name = %s;", (team_name,))
     team_id = cursor.fetchone()
 
@@ -33,25 +42,17 @@ def get_or_create_team(cursor, team_name):
     cursor.execute("INSERT INTO Teams (team_name) VALUES (%s) RETURNING team_id;", (team_name,))
     return cursor.fetchone()[0]
 
-def clean_col(col_name):
-    """
-    Purpose: Helper function to adapt column names from the csv into our sql variable names
-    
-    Arguments:
-        col_name (string): Name of a column
-    Outputs:
-        cleaned_name (string): Replaced column name that matches expected variable names in database.
-    """
-    # Replace all problematic attributes
-    cleaned_name = col_name.replace(".", "_").replace("+/- K/D", "kd_diff").replace("HS%", "hs_pct").replace("+/- FK/FD", "fk_fd_diff")
-
-    return cleaned_name
-
 def load_normalized_data():
     """
-    Purpose: """
-    cn = None
+    Purpose: Loads aggregated match data into SQL database.
+        Note: Assumes SQL database already exists with specific tables.
+    
+    Arguments:
+        None
 
+    Outputs:
+        None. Just updates an SQL database.
+    """
     try:
         # Load CSV
         df = pd.read_csv(CSV_FILE_PATH)
